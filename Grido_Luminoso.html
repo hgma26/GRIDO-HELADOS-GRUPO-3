@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grido Helados - Azul y Rojo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Paleta de Colores (Dominio Azul y Blanco) */
+        :root {
+            --color-primary-blue: #0033A0; /* Azul Principal (Fuerte) */
+            --color-accent-red: #C1272D; /* Rojo de Acento (Botones, Títulos) */
+            --color-background-white: #FFFFFF; /* Blanco Puro */
+            --color-light-gray: #F8F8F8; /* Fondo de secciones suaves */
+            --color-dark-text: #333333; /* Color de Texto Principal */
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--color-dark-text);
+            background-color: var(--color-background-white);
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Fijo (Fondo Blanco, Texto Azul) */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            background: var(--color-background-white);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-primary-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--color-dark-text);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            padding: 5px 0;
+            transition: color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-red);
+            border-bottom-color: var(--color-accent-red);
+        }
+
+        /* Estilos de Sección General */
+        section {
+            padding: 100px 20px;
+            min-height: 80vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--color-primary-blue); /* Título en Azul */
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        /* Hero Section (Imagen de Fondo Suave) */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            /* URL TEMPORAL DE IMAGEN DE FONDO. PUEDES CAMBIARLA POR UNA IMAGEN GUARDADA EN images/FONDO.jpg */
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1599818451842-8c1092e02f1d?w=1600&q=80') center/cover;
+            background-attachment: fixed;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--color-primary-blue);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: var(--color-dark-text);
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--color-accent-red); /* Botones en Rojo */
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-blue); /* Hover en Azul */
+            box-shadow: 0 4px 15px rgba(0, 51, 160, 0.4);
+        }
+
+        /* Products Section */
+        #productos {
+            background-color: var(--color-light-gray);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: var(--color-background-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #ddd;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(193, 39, 45, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--color-primary-blue);
+        }
+
+        .product-info .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-accent-red);
+            margin-bottom: 15px;
+        }
+
+        .product-info p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Video Section */
+        #video-promo {
+            background-color: var(--color-primary-blue); /* Fondo Azul para destacar */
+            color: white;
+            text-align: center;
+        }
+        
+        #video-promo .title {
+            color: white;
+        }
+        
+        #video-promo .subtitle {
+            color: #eee;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #111;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Estilo para YouTube (iframe) */
+        .video-container iframe {
+            /* Esto hace que tu iframe se adapte al ancho y la altura que definimos en el CSS */
+            width: 100%;
+            height: 450px; 
+            border: none;
+        }
+
+
+        /* About Section (Nuestra Historia) */
+        #nosotros {
+            background-color: var(--color-background-white);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            height: 400px; 
+            object-fit: cover; 
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--color-dark-text);
+        }
+
+        .about-text ul {
+            list-style: none;
+            margin-top: 20px;
+            padding-left: 0;
+        }
+        
+        .about-text ul li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #ddd;
+            font-weight: 600;
+            color: var(--color-accent-red); /* Puntos de lista en Rojo */
+        }
+
+        /* Footer (Fondo Azul) */
+        .footer {
+            background: var(--color-primary-blue);
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--color-accent-red); /* Hover Social en Rojo */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+            }
+            .nav-links {
+                margin-top: 15px;
+            }
+            .nav-links a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+            .about-image img {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">GRIDO HELADOS 💙</a>
+            <div class="nav-links">
+                <a href="#hero">Inicio</a>
+                <a href="#productos">Productos</a>
+                <a href="#video-promo">Video Promo</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content container">
+            <h1>Sabor, Tradición y Pasión</h1>
+            <p>El helado que une a la familia. Descubre nuestra nueva colección de verano.</p>
+            <a href="#productos" class="btn-primary">Ver Sabores Hoy</a>
+        </div>
+    </section>
+
+    <section id="productos">
+        <div class="container">
+            <h2 class="title">Nuestros Productos Clásicos</h2>
+            <p class="subtitle">Hechos con la calidad que solo Grido te puede dar.</p>
+            
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <img src="images/producto1.jpg" alt="Palito de Chocolate">
+                    <div class="product-info">
+                        <h3>Palito 'Tentación'</h3>
+                        <p class="price">S/ 10.00</p>
+                        <p>El clásico sabor de chocolate y maní. Crujiente por fuera, cremoso por dentro.</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/producto2.jpg" alt="Pote de Vainilla">
+                    <div class="product-info">
+                        <h3>Pote Familiar de Vainilla</h3>
+                        <p class="price">S/ 25.00</p>
+                        <p>Perfecto para compartir. Vainilla natural, máxima cremosidad y sabor.</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img src="images/producto3.jpg" alt="Torta Helada">
+                    <div class="product-info">
+                        <h3>Torta 'Festejo'</h3>
+                        <p class="price">S/ 65.00</p>
+                        <p>Torta de tres sabores (fresa, chocolate, crema) para cualquier celebración especial.</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/producto4.jpg" alt="Helados navideños">
+                    <div class="product-info">
+                        <h3>Copa 'helados navideños'</h3>
+                        <p class="price">S/ 14.50</p>
+                        <p>Disfruta con tu familia, de las mejores promociones para esta navidad a un super precio</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/producto5.jpg" alt="Bombón Escocés">
+                    <div class="product-info">
+                        <h3>Bombón Escocés</h3>
+                        <p class="price">S/ 11.00</p>
+                        <p>Helado de crema cubierto con trozos de almendra y una capa crocante de chocolate.</p>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/producto6.jpg" alt="Helados de litros de vainilla y chocolate">
+                    <div class="product-info">
+                        <h3>Helados de litros de vainilla y chocolate</h3>
+                        <p class="price">S/ 8.00</p>
+                        <p>Helado de dulce de leche entre dos galletas suaves, bañado en chocolate.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <section id="video-promo">
+        <div class="container">
+            <h2 class="title">Mira Nuestro Último Anuncio</h2>
+            <p class="subtitle">Calidad, frescura y diversión en cada bocado.</p>
+            
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/AlmAWczZt-I?si=PGt-sd2sJWBi55Qa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros">
+        <div class="container">
+            <h2 class="title">Nuestra Historia de Sabor</h2>
+            <p class="subtitle">20 años creando momentos de felicidad en cada ciudad.</p>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Grido comenzó con una pequeña heladería familiar y hoy es una de las mayores cadenas de helados de Latinoamérica. Nuestro éxito se basa en el compromiso con la **calidad, el precio justo y la expansión** para que todos puedan disfrutar de un buen helado.</p>
+                    <p>Usamos métodos de producción estandarizados para asegurar que cada helado sepa igual de delicioso, sin importar la sucursal. La mezcla de tradición argentina con los sabores de cada país nos hace únicos.</p>
+                    <ul>
+                        <li>✅ Líderes en relación Calidad-Precio.</li>
+                        <li>✅ Crecimiento basado en Franquicias sólidas.</li>
+                        <li>✅ Más de 1500 sucursales en 6 países.</li>
+                        <li>✅ La marca de helados favorita de la región.</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="images/historia_grido.jpg" alt="Una familia feliz comiendo helado">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" style="background-color: var(--color-light-gray);">
+        <div class="container" style="text-align: center;">
+            <h2 class="title">Contáctanos</h2>
+            <p class="subtitle">Escríbenos o visita tu sucursal más cercana.</p>
+            
+            <form style="max-width: 600px; margin: 0 auto; background: var(--color-background-white); padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);">
+                <input type="text" placeholder="Tu Nombre" required style="width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ddd; background: white; color: var(--color-dark-text);">
+                <input type="email" placeholder="Tu Correo Electrónico" required style="width: 100%; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ddd; background: white; color: var(--color-dark-text);">
+                <textarea placeholder="Tu Mensaje..." rows="5" required style="width: 100%; padding: 15px; margin-bottom: 30px; border-radius: 8px; border: 1px solid #ddd; background: white; color: var(--color-dark-text);"></textarea>
+                <button type="submit" class="btn-primary" style="border: none; cursor: pointer; width: 100%;">ENVIAR CONSULTA</button>
+            </form>
+
+            <div style="margin-top: 40px; color: #666;">
+                <p>📍 Encuentra tu local más cercano en Google Maps.</p>
+                <p>📞 Teléfono de Pedidos: +51 987 654 321</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">GRIDO HELADOS</div>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank">📘</a>
+            <a href="https://instagram.com" target="_blank">📷</a>
+            <a href="https://tiktok.com" target="_blank">🎵</a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.9rem;">&copy; 2025 Grido Helados. Todos los derechos reservados. 🍦</p>
+    </footer>
+</body>
+</html>
